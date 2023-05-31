@@ -1,1 +1,1 @@
-# Coursera-Getting and Cleaning Data Final Project
+# Coursera: Getting and Cleaning Data Final Project
