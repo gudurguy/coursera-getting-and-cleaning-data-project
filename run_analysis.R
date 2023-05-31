@@ -1,4 +1,4 @@
-#lod the appropriate library
+#load the appropriate library
 library(dplyr)
 
 # Zip file name
