@@ -1,11 +1,12 @@
-#load the appropriate library
+#load the appropriate libraries
 library(dplyr)
+library(data.table)
 
 # Zip file name
 destFilename <- "Dataset.zip"
 
 # Checking if the zip file is already in the local file system. If not, download it from the URL.
-if (!file.exists(filename)){
+if (!file.exists(destFilename)){
   URL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
   download.file(URL, destFilename, method="curl")
 }  
