@@ -35,7 +35,6 @@ activitiesTrain <- read.table("./UCI HAR Dataset/train/y_train.txt", col.names =
 features <- rbind(featuresTrain, featuresTest)
 activities <- rbind(activitiesTrain, activitiesTest)
 subjectData <- rbind(subjectTrain, subjectTest)
-simData <- cbind(activities, features)
 MergedData <- cbind(subjectData, activities, features)
 
 # Step 2: Extracts only the measurements on the mean and standard deviation for each measurement.
