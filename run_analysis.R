@@ -16,12 +16,17 @@ if (!file.exists("./UCI HAR Dataset")) {
 }
 
 # Step 0: Extract the relevant data from the files and assign them to the approriate data frames.
-featuresNames <- read.table("./UCI HAR Dataset/features.txt", col.names = c("n","functions"))
+featuresNames <- read.table("./UCI HAR Dataset/features.txt", header = F)
 activitiesLabels <- read.table("./UCI HAR Dataset/activity_labels.txt", col.names = c("code", "activity"))
+
 subjectTest <- read.table("./UCI HAR Dataset/test/subject_test.txt", col.names = "subject")
 subjectTrain <- read.table("./UCI HAR Dataset/train/subject_train.txt", col.names = "subject")
-featuresTest <- read.table("./UCI HAR Dataset/test/X_test.txt", col.names = featuresNames$functions)
-featuresTrain <- read.table("./UCI HAR Dataset/train/X_train.txt", col.names = featuresNames$functions)
+
+featuresTest <- read.table("./UCI HAR Dataset/test/X_test.txt", header = F)
+featuresTrain <- read.table("./UCI HAR Dataset/train/X_train.txt", header = F)
+names(featuresTest) <- featuresNames$V2
+names(featuresTrain) <- featuresNames$V2
+
 activitiesTest <- read.table("./UCI HAR Dataset/test/y_test.txt", col.names = "code")
 activitiesTrain <- read.table("./UCI HAR Dataset/train/y_train.txt", col.names = "code")
 
@@ -30,8 +35,8 @@ activitiesTrain <- read.table("./UCI HAR Dataset/train/y_train.txt", col.names =
 features <- rbind(featuresTrain, featuresTest)
 activities <- rbind(activitiesTrain, activitiesTest)
 subjectData <- rbind(subjectTrain, subjectTest)
+simData <- cbind(activities, features)
 MergedData <- cbind(subjectData, activities, features)
-
 
 # Step 2: Extracts only the measurements on the mean and standard deviation for each measurement.
 resultsData <- MergedData %>% select(subject, code, contains("mean"), contains("std"))
@@ -60,4 +65,3 @@ finalResultsData <- resultsData %>%
   group_by(Subject, Activity) %>%
   summarise_all(funs(mean))
 write.table(finalResultsData, "./FinalResultsData.txt", row.name=FALSE)
-
